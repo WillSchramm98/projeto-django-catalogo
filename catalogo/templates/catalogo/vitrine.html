@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ tema.titulo }}</title>
+</head>
+<body>
+    <h1>{{ tema.titulo }}</h1>
+    <p>{{ tema.resumo }}</p>
+
+    <h2>Recursos</h2>
+
+    <ul>
+        {% for recurso in recursos %}
+            <li>
+                <a href="{% url 'detalhe' recurso.id %}">
+                    {{ recurso.nome }}
+                </a>
+                (Prestígio: {{ recurso.prestigio }})
+            </li>
+        {% empty %}
+            <li>Nenhum recurso neste tema.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'painel' %}">Voltar</a>
+</body>
+</html>

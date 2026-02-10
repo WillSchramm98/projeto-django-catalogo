@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BEPLinks - Assuntos</title>
+</head>
+<body>
+    <h1>Painel de Assuntos</h1>
+
+    <ul>
+        {% for tema in temas %}
+            <li>
+                <a href="{% url 'vitrine' tema.id %}">
+                    {{ tema.titulo }}
+                </a>
+                <p>{{ tema.resumo }}</p>
+            </li>
+        {% empty %}
+            <li>Nenhum tema cadastrado.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
