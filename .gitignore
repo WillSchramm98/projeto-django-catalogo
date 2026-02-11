@@ -1,0 +1,13 @@
+# Ignorar arquivos compilados do Python
+__pycache__/
+*.pyc
+
+# Ignorar o banco de dados local (se você usar SQLite)
+db.sqlite3
+
+# Ignorar a pasta do ambiente virtual (caso não esteja ignorada)
+venv/
+env/
+
+# Ignorar arquivos de variáveis de ambiente (Segurança!)
+.env
