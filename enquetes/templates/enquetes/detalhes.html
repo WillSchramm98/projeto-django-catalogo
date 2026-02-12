@@ -1,0 +1,11 @@
+<form action="{% url 'enquetes:voto' questao.id %}" method="post">
+{% csrf_token %}
+<h1>{{ questao.descricao }}</h1>
+
+{% for alternativa in questao.alternativa_set.all %}
+    <input type="radio" name="alternativa" value="{{ alternativa.id }}">
+    {{ alternativa.descricao }}<br>
+{% endfor %}
+
+<input type="submit" value="Votar">
+</form>

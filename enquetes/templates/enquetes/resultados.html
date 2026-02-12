@@ -1,0 +1,11 @@
+<h1>{{ questao.descricao }}</h1>
+
+<ul>
+{% for alternativa in questao.alternativa_set.all %}
+    <li>
+        {{ alternativa.descricao }} — {{ alternativa.votos }} voto{{ alternativa.votos|pluralize }}
+    </li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'enquetes:detalhes' questao.id %}">Votar novamente</a>
