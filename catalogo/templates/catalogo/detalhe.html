@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'catalogo/css/styles.css' %}">
+    <title>{{ recurso.nome }}</title>
+</head>
+<body>
+    <h1>{{ recurso.nome }}</h1>
+
+    <p><strong>Descrição:</strong> {{ recurso.descricao }}</p>
+    <p><strong>Tipo:</strong> {{ recurso.tipo }}</p>
+    <p><strong>Custo:</strong>
+        {% if recurso.gratuito %}
+            Gratuito
+        {% else %}
+            Pago
+        {% endif %}
+    </p>
+
+    <p><strong>Prestígio:</strong> {{ recurso.prestigio }}</p>
+
+  
+    <form action="{% url 'curtir' recurso.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">👍 Curtir</button>
+    </form>
+
+    <p>
+        <a href="{{ recurso.link }}" target="_blank">
+            Acessar recurso
+        </a>
+    </p>
+
+    <a href="{% url 'editar_recurso' recurso.id %}">Editar</a>
+    <br>
+    <a href="{% url 'excluir_recurso' recurso.id %}">Excluir</a>
+
+    <br>
+    <a href="{% url 'vitrine' recurso.tema.id %}">Voltar</a>
+
+</body>
+</html>

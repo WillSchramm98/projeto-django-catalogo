@@ -1,0 +1,11 @@
+<h1>Enquetes</h1>
+
+<ul>
+{% for questao in questoes %}
+    <li>
+        <a href="{% url 'enquetes:detalhes' questao.id %}">
+            {{ questao.descricao }}
+        </a>
+    </li>
+{% endfor %}
+</ul>
