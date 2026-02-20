@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'catalogo/css/styles.css' %}">
     <title>{{ tema.titulo }}</title>
 </head>
 <body>
-    <h1>{{ tema.titulo }}</h1>
-    <p>{{ tema.resumo }}</p>
+<div class="container">
+    <h1>{{ tema.nome }}</h1>
 
-    <h2>Recursos</h2>
+    <a href="{% url 'adicionar_recurso' %}">
+        <button>+ Adicionar Recurso</button>
+    </a>
 
-    <ul>
-        {% for recurso in recursos %}
-            <li>
+    <br><br>
+
+    {% for recurso in recursos %}
+        <div class="card">
+            <h2>
                 <a href="{% url 'detalhe' recurso.id %}">
                     {{ recurso.nome }}
                 </a>
-                (Prestígio: {{ recurso.prestigio }})
-            </li>
-        {% empty %}
-            <li>Nenhum recurso neste tema.</li>
-        {% endfor %}
-    </ul>
+            </h2>
+            <p>{{ recurso.descricao }}</p>
+        </div>
+    {% empty %}
+        <p>Nenhum recurso cadastrado.</p>
+    {% endfor %}
 
-    <a href="{% url 'painel' %}">Voltar</a>
+    <br>
+    <a href="{% url 'painel' %}">← Voltar</a>
+</div>
 </body>
 </html>

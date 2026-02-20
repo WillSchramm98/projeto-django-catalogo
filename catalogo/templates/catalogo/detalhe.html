@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'catalogo/css/styles.css' %}">
     <title>{{ recurso.nome }}</title>
 </head>
 <body>
@@ -18,7 +20,7 @@
 
     <p><strong>Prestígio:</strong> {{ recurso.prestigio }}</p>
 
-    <!-- BOTÃO DE CURTIR -->
+  
     <form action="{% url 'curtir' recurso.id %}" method="post">
         {% csrf_token %}
         <button type="submit">👍 Curtir</button>
@@ -30,7 +32,12 @@
         </a>
     </p>
 
+    <a href="{% url 'editar_recurso' recurso.id %}">Editar</a>
+    <br>
+    <a href="{% url 'excluir_recurso' recurso.id %}">Excluir</a>
+
     <br>
     <a href="{% url 'vitrine' recurso.tema.id %}">Voltar</a>
+
 </body>
 </html>

@@ -46,7 +46,7 @@ def adicionar_tema(request):
     return render(request, 'catalogo/form.html', {'form': form})
 
 
-def painel_assuntos(request):
+def painel(request):
     temas = Tema.objects.all()
     return render(request, 'catalogo/painel.html', {'temas': temas})
 
