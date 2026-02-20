@@ -1,5 +1,49 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Tema, Recurso
+from django.db.models import F
+from django.shortcuts import redirect
+from .forms import TemaForm
+from .forms import RecursoForm
+
+def excluir_recurso(request, recurso_id):
+    recurso = Recurso.objects.get(pk=recurso_id)
+    recurso.delete()
+    return redirect('painel')
+
+def editar_recurso(request, recurso_id):
+    recurso = Recurso.objects.get(pk=recurso_id)
+
+    if request.method == 'POST':
+        form = RecursoForm(request.POST, instance=recurso)
+        if form.is_valid():
+            form.save()
+            return redirect('detalhe', recurso_id=recurso.id)
+    else:
+        form = RecursoForm(instance=recurso)
+
+    return render(request, 'catalogo/form.html', {'form': form})
+
+def adicionar_recurso(request):
+    if request.method == 'POST':
+        form = RecursoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('painel')
+    else:
+        form = RecursoForm()
+
+    return render(request, 'catalogo/form.html', {'form': form})
+
+def adicionar_tema(request):
+    if request.method == 'POST':
+        form = TemaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('painel')
+    else:
+        form = TemaForm()
+
+    return render(request, 'catalogo/form.html', {'form': form})
 
 
 def painel_assuntos(request):
@@ -19,3 +63,10 @@ def vitrine_eixo(request, tema_id):
 def raio_x_recurso(request, recurso_id):
     recurso = get_object_or_404(Recurso, id=recurso_id)
     return render(request, 'catalogo/detalhe.html', {'recurso': recurso})
+
+
+def curtir_recurso(request, recurso_id):
+    recurso = Recurso.objects.get(pk=recurso_id)
+    recurso.prestigio = F('prestigio') + 1
+    recurso.save()
+    return redirect('detalhe', recurso_id=recurso.id)

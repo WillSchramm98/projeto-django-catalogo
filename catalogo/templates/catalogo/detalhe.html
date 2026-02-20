@@ -15,13 +15,22 @@
             Pago
         {% endif %}
     </p>
+
     <p><strong>Prestígio:</strong> {{ recurso.prestigio }}</p>
+
+    <!-- BOTÃO DE CURTIR -->
+    <form action="{% url 'curtir' recurso.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">👍 Curtir</button>
+    </form>
+
     <p>
         <a href="{{ recurso.link }}" target="_blank">
             Acessar recurso
         </a>
     </p>
 
+    <br>
     <a href="{% url 'vitrine' recurso.tema.id %}">Voltar</a>
 </body>
 </html>
