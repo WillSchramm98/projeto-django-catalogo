@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from .models import Questao, Alternativa
+from rest_framework import viewsets
+from .serializers import QuestaoSerializer
 
 
 def index(request):
@@ -35,3 +37,8 @@ def voto(request, questao_id):
 def resultados(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id)
     return render(request, 'enquetes/resultados.html', {'questao': questao})
+
+
+class QuestaoViewSet(viewsets.ModelViewSet):
+    queryset = Questao.objects.all()
+    serializer_class = QuestaoSerializer
